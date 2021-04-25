@@ -1,6 +1,9 @@
 exports.getPrivateRoute = (req, res, next) => {
+  const userName = req.user.username;
+
+  //private data
   res.status(200).json({
     success: true,
-    data: "You got access to the private data in this route",
+    data: `${userName}`,
   });
 };

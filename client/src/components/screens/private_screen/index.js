@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
-import "./index.css";
 
+import NotAuth from "./notAuth.jsx";
+import Auth from "./auth.jsx";
+import ThreeApp from "./threeApp.js";
+
+//userName is the private data here
 const PrivateScreen = () => {
   const [error, setError] = useState("");
-  const [privateData, setPrivateData] = useState("");
-  let history = useHistory();
+  const [userName, setuserName] = useState("");
 
   useEffect(() => {
     const fetchPrivateDate = async () => {
@@ -19,7 +21,7 @@ const PrivateScreen = () => {
 
       try {
         const { data } = await axios.get("/api/private", config);
-        setPrivateData(data.data);
+        setuserName(data.data);
       } catch (error) {
         localStorage.removeItem("authToken");
         setError("You are not authorized please login");
@@ -29,17 +31,12 @@ const PrivateScreen = () => {
     fetchPrivateDate();
   }, []);
 
-  const logoutHandler = () => {
-    localStorage.removeItem("authToken");
-    history.push("/login");
-  };
-
   return error ? (
-    <span className="error-message">{error}</span>
+    <NotAuth error={error} />
   ) : (
     <>
-      <div>{privateData}</div>
-      <button onClick={logoutHandler}>LogOut</button>
+      <Auth userName={userName} />
+      <ThreeApp />
     </>
   );
 };
