@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
 import "./index.css";
 
-const ResetPasswordScreen = ({ match }) => {
+const PasswordResetScreen = ({ match }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  let history = useHistory();
 
   const resetPasswordHandler = async (e) => {
     e.preventDefault();
@@ -37,8 +38,11 @@ const ResetPasswordScreen = ({ match }) => {
         config
       );
 
-      console.log(data);
+      // console.log(data);
       setSuccess(data.data);
+
+      //clear data and sleep
+      history.push("/login");
     } catch (error) {
       setError(error.response.data.error);
       setTimeout(() => {
@@ -92,4 +96,4 @@ const ResetPasswordScreen = ({ match }) => {
   );
 };
 
-export default ResetPasswordScreen;
+export default PasswordResetScreen;

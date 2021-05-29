@@ -10,7 +10,7 @@ import {
   LoginScreen,
   RegisterScreen,
   ForgotPasswordScreen,
-  ResetPasswordScreen,
+  PasswordResetScreen,
 } from "./components/screens";
 
 const App = () => {
@@ -30,8 +30,8 @@ const App = () => {
           />
           <Route
             exact
-            path="/resetpassword/:resetToken"
-            component={ResetPasswordScreen}
+            path="/passwordreset/:resetToken"
+            component={PasswordResetScreen}
           />
         </Switch>
       </div>
